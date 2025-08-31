@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from './redis/redis.service';
 import { v4 as uuidv4 } from 'uuid';
+import { series } from 'async';
 
 export type User = {
   firstName: string;
@@ -47,14 +48,23 @@ export class AppService {
     await this.redisService.client.zadd(name, score, userId);
   }
 
-  /**
-   * @todo
-   */
-  async getScores(params: { name: string }): Promise<Score[]> {
-    return this.redisService.client.zrange(
+  async getScores(params: { name: string; count: number }): Promise<Score[]> {
+    const userIds = await (this.redisService.client.zrange(
       params.name,
       0,
-      4,
-    ) as unknown as Promise<Score[]>;
+      params.count,
+    ) as unknown as Promise<string[]>);
+
+    const scores = userIds.map((userId) => {
+      return (callback: (...params: any[]) => any) => {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        this.redisService.client.hgetall(userId, function getUser(err, obj) {
+          callback(err, obj);
+        });
+      };
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+    return series([...scores]);
   }
 }

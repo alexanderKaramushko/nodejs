@@ -27,9 +27,10 @@ export class AppController {
   }
 
   @Post('get-scores')
-  getScores(@Body() body: { name: string }): Promise<Score[]> {
+  getScores(@Body() body: { name: string; count: number }): Promise<Score[]> {
     return this.appService.getScores({
       name: body.name,
+      count: body.count,
     });
   }
 }
