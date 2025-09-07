@@ -35,6 +35,17 @@ export class AppService {
     await this.redisService.client.hset(uuid, 'score', score);
     await this.redisService.client.hset(uuid, 'date', date);
 
+    await this.redisService.client.rpush(
+      'users',
+      JSON.stringify({
+        uuid,
+        firstName,
+        lastName,
+        score,
+        date,
+      }),
+    );
+
     return this.redisService.client.hgetall(uuid) as unknown as Promise<User>;
   }
 
@@ -64,7 +75,13 @@ export class AppService {
       };
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return series([...scores]);
+  }
+
+  async getUsers(): Promise<User[]> {
+    const users = await this.redisService.client.lrange('users', 0, -1);
+
+    return users.map((user) => JSON.parse(user) as User);
   }
 }

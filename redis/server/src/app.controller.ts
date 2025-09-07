@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService, Score, User } from './app.service';
 
 @Controller()
@@ -12,7 +12,12 @@ export class AppController {
     return this.appService.createUserWithInfo(body);
   }
 
-  @Post('add-score/:id')
+  @Get('users')
+  getUsers(): Promise<User[]> {
+    return this.appService.getUsers();
+  }
+
+  @Post('score/add/:id')
   addScore(
     @Param() params: { id: string },
     @Body() body: { name: string; score: number },
@@ -26,11 +31,14 @@ export class AppController {
       .then(() => 'OK');
   }
 
-  @Post('get-scores')
-  getScores(@Body() body: { name: string; count: number }): Promise<Score[]> {
+  @Get('scores')
+  getScores(
+    @Query('name') name: string,
+    @Query('count') count: number,
+  ): Promise<Score[]> {
     return this.appService.getScores({
-      name: body.name,
-      count: body.count,
+      name: name,
+      count: count,
     });
   }
 }

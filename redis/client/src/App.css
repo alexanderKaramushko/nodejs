@@ -1,0 +1,16 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 600px;
+}
+
+.forms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0 40px;
+}
+
+.title {
+  margin-top: 0;
+}
