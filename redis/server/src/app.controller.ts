@@ -8,7 +8,7 @@ export class AppController {
   @Post('create')
   createUserWithInfo(
     @Body() body: { firstName: string; lastName: string; score: number },
-  ): Promise<User> {
+  ): Promise<void> {
     return this.appService.createUserWithInfo(body);
   }
 
