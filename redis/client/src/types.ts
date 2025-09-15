@@ -5,3 +5,11 @@ export type User = {
   score: number;
   date: string;
 }
+
+export type Score = {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  score: number;
+  date: string;
+}

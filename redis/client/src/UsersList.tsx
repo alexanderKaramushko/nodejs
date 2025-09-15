@@ -6,7 +6,9 @@ import './UsersList.css';
 
 export const GET_USERS_QUERY_KEY = 'users';
 
-function UsersList() {
+function UsersList(props: { onGameAdd: (userId: string) => void }) {
+  const { onGameAdd } = props;
+
   const usersQuery = useQuery({
     queryFn: () => {
       return axios.get<User[]>('/api/users');
@@ -24,6 +26,9 @@ function UsersList() {
           <th>
             Счет
           </th>
+          <th>
+            Действия
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +36,15 @@ function UsersList() {
           <tr key={user.uuid}>
             <td>{[user.firstName, user.lastName].join(' ')}</td>
             <td>{user.score}</td>
+            <td colSpan={2}>
+              <button
+                onClick={() => {
+                  onGameAdd(user.uuid);
+                }}
+              >
+                Добавить игру
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>

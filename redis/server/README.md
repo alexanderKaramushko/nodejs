@@ -12,27 +12,30 @@
 2. Добавление нового показателя по игре в отсортированный набор по id игрока ✅
 3. Показатели игр хранятся в отсортированном набор по id игрока ✅
 4. Вывод топ 5/топ 10 игроков с наивысшими показателями по определенной игре ✅
-5. Показ показателей всех игроков по определенной игре
-6. Показ всех показателй у определенного игрока
+5. Показ показателей всех игроков по определенной игре ✅
+6. Обновление счета игрока при добавлении новой игры ✅
 
 ## Запросы
 
 ### Создать пользователя
+
 curl -X POST "http://localhost:3000/create" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "firstName": "Иван",
-           "lastName": "Петров",
-           "score": 85
-         }'
+ -H "Content-Type: application/json" \
+ -d '{
+"firstName": "Иван",
+"lastName": "Петров",
+"score": 85
+}'
 
 ### Добавить счет пользователю
+
 curl -X POST "http://localhost:3000/score/add/:id" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "name": "Witcher 3",
-           "score": 85
-         }'
+ -H "Content-Type: application/json" \
+ -d '{
+"name": "Witcher 3",
+"score": 85
+}'
 
 ### Получить счета по игре
+
 curl -X GET "http://localhost:3000/scores?name=Witcher%203&count=5"

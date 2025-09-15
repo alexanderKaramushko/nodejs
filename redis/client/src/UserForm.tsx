@@ -12,7 +12,6 @@ function UserForm() {
     mutationFn: (payload: {
       firstName: string;
       lastName: string;
-      score: number;
     }) => {
       return axios.post('/api/create', payload);
     },
@@ -26,11 +25,9 @@ function UserForm() {
   const [state, setState] = useState<{
     firstName: string;
     lastName: string;
-    score: number;
   }>({
     firstName: '',
     lastName: '',
-    score: 0,
   });
 
   return (
@@ -39,6 +36,7 @@ function UserForm() {
         <label htmlFor="firstName">Имя</label> <br />
         <input id='firstName' type="text" onChange={(event) => {
           const value = event.target.value;
+
           if (value) {
             setState((state) => ({
               ...state,
@@ -51,6 +49,7 @@ function UserForm() {
         <label htmlFor="firstName">Фамилия</label> <br />
         <input id='lastName' type="text" onChange={(event) => {
           const value = event.target.value;
+
           if (value) {
             setState((state) => ({
               ...state,
@@ -59,23 +58,10 @@ function UserForm() {
           }
         }} />
       </div>
-      <div>
-        <label htmlFor="score">Общий счет</label> <br />
-        <input id='score' type="number" onChange={(event) => {
-          const value = event.target.value;
-          if (value) {
-            setState((state) => ({
-              ...state,
-              score: Number.parseInt(value, 10)
-            }));
-          }
-        }} />
-      </div>
       <button onClick={() => {
         createMutation.mutate({
           firstName: state.firstName,
           lastName: state.lastName,
-          score: state.score
         });
       }}>Создать пользователя</button>       
     </div>
