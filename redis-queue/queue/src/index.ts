@@ -4,7 +4,7 @@ import { Redis } from 'ioredis';
 let redis: Redis;
 
 net
-  .createServer((socket) => {
+  .createServer(async (socket) => {
     redis = new Redis({
       host: "localhost",
       port: 6379,
@@ -13,6 +13,8 @@ net
     redis.on('error', (error) => {
       console.log(error.message)
     });
+
+    await redis.select(6);
 
     socket.on('data', (imageUrl) => {
       console.log(`Получен ${imageUrl} от ${socket.remoteAddress} на порту ${socket.remotePort}`);
