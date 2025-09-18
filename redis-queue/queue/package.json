@@ -1,0 +1,23 @@
+{
+  "name": "queue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node ./src/index.js",
+    "start:redis": "redis-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "a.karamushko",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@origranot/ts-logger": "^1.12.0",
+    "ioredis": "^5.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "typescript": "^5.9.2",
+    "@types/ioredis": "^5.0.0"
+  }
+}
