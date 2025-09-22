@@ -27,6 +27,6 @@ net
     await redis.flushdb();
 
     redis.quit();
-  })
+  });
 
-console.log('Очередь сообщений запущена на порту 3000')
+console.log('Очередь сообщений запущена на порту 3000');
