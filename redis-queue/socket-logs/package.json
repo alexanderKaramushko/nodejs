@@ -1,21 +1,17 @@
 {
-  "name": "queue",
+  "name": "socket-logs",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --watch src --ext ts --exec \"tsx\" src/index.ts",
+    "start": "tsx src/index.ts",
     "start:redis": "redis-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "a.karamushko",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "ioredis": "^5.7.0"
-  },
   "devDependencies": {
-    "@types/ioredis": "^5.0.0",
     "@types/node": "^22.10.7",
     "nodemon": "^3.1.10",
     "tsx": "^4.20.5",

@@ -10,8 +10,12 @@ net
       port: 6379,
     });
 
+    redis.on('reconnecting', () => {
+      console.log('Подключение к Redis...');
+    });
+
     redis.on('error', (error) => {
-      console.log(error.message)
+      console.log(error.message);
     });
 
     await redis.select(6);
