@@ -18,6 +18,7 @@ const logs = spawn('tail', ['-f', path.join(path.dirname(__filename), 'access.lo
 logs.stdout.setEncoding('utf8');
 
 logs.stdout.on('data', (log) => {
+  console.log(log);
   const parts = /GET\s(\S+)\sHTTP/g.exec(log);
 
   if (parts && /\.jpg$|\.png|\.gif|\.svg/.test(parts[1])) {

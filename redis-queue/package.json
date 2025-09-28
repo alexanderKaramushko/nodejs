@@ -1,0 +1,29 @@
+{
+  "name": "redis-queue",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "queue",
+    "socket-logs",
+    "server"
+  ],
+  "description": "Очередь сообщений",
+  "main": "start.js",
+  "scripts": {
+    "start": "./start.js",
+    "postinstall": "chmod +x ./start.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.7"
+  },
+  "dependencies": {
+    "async": "^3.2.6",
+    "shelljs": "^0.10.0"
+  }
+}
