@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { AppService, Score, User } from './app.service';
+import { AppService, Score, Stats, User } from './app.service';
 
 @Controller()
 export class AppController {
@@ -40,5 +40,10 @@ export class AppController {
       name: name,
       count: count,
     });
+  }
+
+  @Get('stats')
+  getStats(): Promise<Stats> {
+    return this.appService.getStats();
   }
 }

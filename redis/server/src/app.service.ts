@@ -19,6 +19,8 @@ export type Score = {
   date: string;
 };
 
+export type Stats = { ips: string[]; paths: Record<string, number> };
+
 @Injectable()
 export class AppService {
   constructor(private readonly redisService: RedisService) {}
@@ -110,5 +112,26 @@ export class AppService {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return series([...scores]);
+  }
+
+  async getStats(): Promise<{ ips: string[]; paths: Record<string, number> }> {
+    await this.redisService.client.select(2);
+
+    const [ipsResult, pathsResult] =
+      (await this.redisService.client
+        .multi()
+        .smembers('ip')
+        .hgetall('paths')
+        .exec()) ?? [];
+
+    const [, ipsData] = ipsResult;
+    const [ips] = ipsData as [Stats['ips']];
+
+    const [, paths] = pathsResult;
+
+    return {
+      ips,
+      paths: paths as Stats['paths'],
+    };
   }
 }
