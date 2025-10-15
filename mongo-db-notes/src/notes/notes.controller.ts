@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { Note } from './node.model';
 
@@ -12,7 +12,12 @@ export class NotesController {
   }
 
   @Get('/notes')
-  getNoted(): Promise<Note[]> {
+  getNotes(): Promise<Note[]> {
     return this.notesService.findAll();
+  }
+
+  @Get('/note/:id')
+  getNote(@Param('id') id: string): Promise<Note | null> {
+    return this.notesService.findById(id);
   }
 }

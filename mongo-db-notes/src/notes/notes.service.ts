@@ -16,4 +16,8 @@ export class NotesService {
   findAll(): Promise<Note[]> {
     return this.noteModel.find().exec();
   }
+
+  findById(id: string): Promise<Note | null> {
+    return this.noteModel.findById(id).exec();
+  }
 }
