@@ -20,4 +20,10 @@ export class NotesController {
   getNote(@Param('id') id: string): Promise<Note | null> {
     return this.notesService.findById(id);
   }
+
+  @Post('/update/:id')
+  update(@Param('id') id: string, @Body() noteDto: Note): Promise<Note | null> {
+    console.log(id, noteDto);
+    return this.notesService.update(id, noteDto);
+  }
 }

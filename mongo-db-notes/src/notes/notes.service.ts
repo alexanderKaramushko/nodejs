@@ -20,4 +20,12 @@ export class NotesService {
   findById(id: string): Promise<Note | null> {
     return this.noteModel.findById(id).exec();
   }
+
+  update(id: string, note: Note): Promise<Note | null> {
+    return this.noteModel.findOneAndUpdate(
+      { _id: id },
+      { $set: note },
+      { upsert: true },
+    );
+  }
 }
