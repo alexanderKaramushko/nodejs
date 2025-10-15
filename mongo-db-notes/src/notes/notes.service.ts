@@ -28,4 +28,8 @@ export class NotesService {
       { upsert: true },
     );
   }
+
+  delete(id: string): Promise<Note | null> {
+    return this.noteModel.findOneAndDelete({ _id: id });
+  }
 }
